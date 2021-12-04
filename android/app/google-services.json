@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "967063470200",
+    "project_id": "buy-and-go-fe7db",
+    "storage_bucket": "buy-and-go-fe7db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967063470200:android:ab4e117704b27aec622d8d",
+        "android_client_info": {
+          "package_name": "com.andre.buy_and_go"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967063470200-d2qrashte171s1b8fvnojjuhod4acura.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs9LPxCwfPJQD-Ltg9hCL5uLoGVSdjYGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967063470200-d2qrashte171s1b8fvnojjuhod4acura.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
