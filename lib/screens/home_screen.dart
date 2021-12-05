@@ -31,17 +31,17 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: "Início",
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.home),
+          //   label: "Início",
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.list_alt_sharp),
-            label: "Categorias",
+            label: "Lista De Compras",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.shopping_cart),
-            label: "Carrinho",
+            label: "Produtos",
           )
         ],
         currentIndex: page,
