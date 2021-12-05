@@ -62,10 +62,10 @@ class _EditScreenState extends State<EditScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Id: ${widget.id}",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
+                    // Text(
+                    //   "Id: ${widget.id}",
+                    //   style: TextStyle(fontWeight: FontWeight.bold),
+                    // ),
                     SizedBox(height: 5),
                     Text("Nome:"),
                     TextFormField(

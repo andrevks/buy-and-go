@@ -76,8 +76,8 @@ import 'package:intl/intl.dart';
 //   }
 // }
 
-class ProductScreen extends StatefulWidget {
-  const ProductScreen({
+class ListProductScreen extends StatefulWidget {
+  const ListProductScreen({
     Key? key,
     required this.purchaseId,
   }) : super(key: key);
@@ -85,12 +85,135 @@ class ProductScreen extends StatefulWidget {
   final String purchaseId;
 
   @override
-  _ProductScreenState createState() => _ProductScreenState();
+  _ListProductScreenState createState() => _ListProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
+class _ListProductScreenState extends State<ListProductScreen> {
+  @override
+  void initState() {
+    // nameController = TextEditingController(text: widget.name);
+    // socialMediaController = TextEditingController(text: widget.socialMedia);
+    super.initState();
+  }
+
+  // late TextEditingController nameController;
+  // late TextEditingController socialMediaController;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return StreamBuilder<QuerySnapshot>(
+      stream: Database.productListFromUser(widget.purchaseId),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text("Não existe dados no Firebase!!!");
+        } else if (snapshot.hasData || snapshot.data != null) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text('GridView Demo'),
+            ),
+            body: Form(
+              child: GridView.builder(
+                itemCount: snapshot.data!.docs.length,
+                itemBuilder: (context, index) {
+                  String productId = snapshot.data!.docs[index].id;
+                  // String date = snapshot.data!.docs[index].get('date');
+                  double price = snapshot.data!.docs[index].get('price');
+                  return ListTile(
+                    title: Text("$productId"),
+                    subtitle: Text("R\$ $price"),
+                    // onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    //     builder: (context) =>
+                    //         ListProductScreen(purchaseId: purchaseId))),
+                    // onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    //   builder: (context) => EditScreen(
+                    //       id: docId, name: name, socialMedia: socialMedia),
+                    // )),
+                  );
+                },
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16),
+                shrinkWrap: true,
+                // children: [
+                //   Image.network('https://picsum.photos/250?image=1'),
+                //   Image.network('https://picsum.photos/250?image=2'),
+                //   Image.network('https://picsum.photos/250?image=3'),
+                //   Image.network('https://picsum.photos/250?image=4'),
+                //   Image.network('https://picsum.photos/250?image=1'),
+                //   Image.network('https://picsum.photos/250?image=2'),
+                //   Image.network('https://picsum.photos/250?image=3'),
+                //   Image.network('https://picsum.photos/250?image=4'),
+                //   Image.network('https://picsum.photos/250?image=1'),
+                //   Image.network('https://picsum.photos/250?image=2'),
+                //   Image.network('https://picsum.photos/250?image=3'),
+                //   Image.network('https://picsum.photos/250?image=4'),
+
+                // Center(
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       // Text(
+                //       //   "Id: ${widget.id}",
+                //       //   style: TextStyle(fontWeight: FontWeight.bold),
+                //       // ),
+                //       SizedBox(height: 5),
+                //       Text("id:${widget.purchaseId}"),
+                //       // TextFormField(
+                //       //   controller: nameController,
+                //       //   keyboardType: TextInputType.text,
+                //       //   textInputAction: TextInputAction.next,
+                //       // ),
+                //       SizedBox(height: 30),
+                //       Text("Rede Social:"),
+                //       // TextFormField(
+                //       //   controller: socialMediaController,
+                //       //   keyboardType: TextInputType.text,
+                //       //   textInputAction: TextInputAction.next,
+                //       // ),
+                //       SizedBox(
+                //         height: 30,
+                //       ),
+                //       // Center(
+                //       //   child: ElevatedButton(
+                //       //     onPressed: () async {
+                //       //       await Database.updateStudent(widget.id,
+                //       //           nameController.text, socialMediaController.text);
+                //       //       Navigator.of(context).pop();
+                //       //     },
+                //       //     child: Text(
+                //       //       "Atualizar Dados",
+                //       //       style: TextStyle(
+                //       //         fontSize: 20,
+                //       //         fontWeight: FontWeight.bold,
+                //       //         color: Colors.black,
+                //       //       ),
+                //       //     ),
+                //       //   ),
+                //       // ),
+                //     ],
+                //   ),
+                // ),
+                // ],
+              ),
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
+
+      // body: GridView(
+      //   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+      //     crossAxisCount: 2,
+      //   ),
+      //   children: [
+      //     Image.network('https://picsum.photos/250?image=1'),
+      //     Image.network('https://picsum.photos/250?image=2'),
+      //     Image.network('https://picsum.photos/250?image=3'),
+      //     Image.network('https://picsum.photos/250?image=4'),
+      //   ],
+      // ),
+    );
   }
 }

@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Engenharia da Computação',
+      title: 'Buy and Go APP',
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
