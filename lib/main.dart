@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
       ),
       home: LoginScreen(
-        title: "Crud - Acadêmico",
+        title: "Buy And GO",
       ),
     );
   }

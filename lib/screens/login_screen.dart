@@ -40,7 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: TextFormField(
                           controller: _userIdController,
                           style: TextStyle(color: Colors.indigo),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelStyle: TextStyle(color: Colors.black),
                             labelText: "Nome do usuário",
                             hintText: "Informe o identificador do usuário",
@@ -53,37 +53,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: TextFormField(
                           controller: _passwordController,
                           style: TextStyle(color: Colors.indigo),
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             labelStyle: TextStyle(color: Colors.black),
                             labelText: "Senha do usuário",
                             hintText: "Informe a senha do usuário",
                           ),
                           obscureText: true,
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          Database.signUp(
-                              userName: _userIdController.text,
-                              password: _passwordController.text,
-                              onFail: () {
-                                ScaffoldMessenger(
-                                  child: SnackBar(
-                                    content: Text('Falha ao autenticar'),
-                                  ),
-                                );
-                              },
-                              onSuccess: () {
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => CrudScreen(),
-                                  ),
-                                );
-                              });
-                        },
-                        child: Text(
-                          "Registrar-se",
-                          style: TextStyle(fontSize: 14, color: Colors.black),
                         ),
                       ),
                       ElevatedButton(
@@ -110,6 +85,31 @@ class _LoginScreenState extends State<LoginScreen> {
                               "${_userIdController.text} realizou login");
                         },
                         child: Text("Realizar Login"),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Database.signUp(
+                              userName: _userIdController.text,
+                              password: _passwordController.text,
+                              onFail: () {
+                                ScaffoldMessenger(
+                                  child: SnackBar(
+                                    content: Text('Falha ao autenticar'),
+                                  ),
+                                );
+                              },
+                              onSuccess: () {
+                                Navigator.of(context).pushReplacement(
+                                  MaterialPageRoute(
+                                    builder: (context) => CrudScreen(),
+                                  ),
+                                );
+                              });
+                        },
+                        child: Text(
+                          "Registrar-se",
+                          style: TextStyle(fontSize: 14, color: Colors.black),
+                        ),
                       ),
                     ],
                   ),

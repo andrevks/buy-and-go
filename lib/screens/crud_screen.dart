@@ -15,7 +15,7 @@ class _CrudScreenState extends State<CrudScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Sistema Acadêmico"),
+        title: Text("Lista de Compras"),
       ),
       body: ListScreen(),
       floatingActionButton: FloatingActionButton(

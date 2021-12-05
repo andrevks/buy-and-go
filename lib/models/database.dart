@@ -1,6 +1,9 @@
+import 'dart:ffi';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import "package:firebase_core/firebase_core.dart";
 import "package:firebase_auth/firebase_auth.dart";
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
 //FirebaseFirestore -> permite acesso as dados no FIREBASE
@@ -8,6 +11,8 @@ import 'package:flutter/services.dart';
 FirebaseFirestore _firestore = FirebaseFirestore.instance;
 //Objeto para obter uma referência da coleção
 CollectionReference _reference = _firestore.collection("academic");
+CollectionReference _userReference = _firestore.collection("user");
+CollectionReference _productReference = _firestore.collection("product");
 
 //inicialização da instância de autenticação no firebase
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -63,6 +68,8 @@ class Database {
     DocumentReference documentReference =
         _reference.doc(userId).collection('students').doc();
 
+    debugPrint("USERID >>>>> $userId");
+
     Map<String, dynamic> data = <String, dynamic>{
       "name": name,
       "socialMedia": socialMedia,
@@ -73,6 +80,28 @@ class Database {
     await documentReference
         .set(data)
         .whenComplete(() => print("Estudante gravado com sucesso!!!"));
+  }
+
+  //método para adicionar dados no Firebase
+  static addToShoppingList({
+    required String date,
+    required double totalPrice,
+    List<Map<String, dynamic>>? products,
+  }) async {
+    DocumentReference documentReference =
+        _userReference.doc(userId).collection('shoppingList').doc();
+
+    debugPrint("USERID >>>>> $userId");
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "date": date,
+      "totalPrice": totalPrice,
+      "products": products,
+    };
+
+    await documentReference
+        .set(data)
+        .whenComplete(() => print("COMPRA gravada com sucesso!!!"));
   }
 
   static Future<void> updateStudent(
@@ -94,6 +123,26 @@ class Database {
         _reference.doc(userId).collection('students');
     return studentsCollection.snapshots();
   }
+
+  static Stream<QuerySnapshot> shoppingList() {
+    CollectionReference userCollection =
+        _userReference.doc(userId).collection('shoppingList');
+    return userCollection.snapshots();
+  }
+
+  static Stream<QuerySnapshot> productListFromUser(String purchaseId) {
+    CollectionReference userCollection = _userReference
+        .doc(userId)
+        .collection('shoppingList')
+        .doc(purchaseId)
+        .collection('products');
+    return userCollection.snapshots();
+  }
+
+  /* 
+    You need to create a collection product and then a doc to a list of products
+
+  */
 
   //método para deletar info no firebase
   static deleteStudent(String id) {
