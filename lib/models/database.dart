@@ -133,23 +133,19 @@ class Database {
 
   static Stream<QuerySnapshot> productListFromUser(String purchaseId) {
     print("ID>>> ${purchaseId}\n");
-    // CollectionReference userCollection = _userReference
-    //     .doc(userId)
-    //     .collection('shoppingList')
-    //     .doc(purchaseId)
-    //     .collection('products');
 
     CollectionReference cartCollection =
         _cartReference.doc(purchaseId).collection('products');
-    // /cart/3mMH9o6thZdWnLGtSjSP/products
-
-    // ("/user/${userId}/shoppingList/${purchaseId}/products");
-
-    // print("RETURN SNAP>>> ${userCollection.snapshots()}");
     return cartCollection.snapshots();
     // CollectionReference productCollection = _productReference;
     // print("RETURN SNAP${productCollection.snapshots()}");
     // return productCollection.snapshots();
+  }
+
+  static Stream<QuerySnapshot> productList() {
+    CollectionReference productCollection = _productReference;
+    print("RETURN SNAP${productCollection.snapshots()}");
+    return productCollection.snapshots();
   }
 
   /* 

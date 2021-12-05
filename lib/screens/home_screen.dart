@@ -1,4 +1,5 @@
 import 'package:buy_and_go/screens/crud_screen.dart';
+import 'package:buy_and_go/screens/list_all_products.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     pageList.add(CrudScreen());
-    pageList.add(Container(color: Colors.black87));
+    pageList.add(ListProductsScreen());
     pageList.add(Container(
       color: Colors.blue.shade500,
     ));
