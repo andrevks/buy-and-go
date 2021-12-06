@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:buy_and_go/models/database.dart';
+import 'package:buy_and_go/screens/add_product_screen.dart';
 import 'package:buy_and_go/screens/edit_product_screen.dart';
 import 'package:buy_and_go/screens/edit_screen.dart';
 import 'package:buy_and_go/screens/view_product_screen.dart';
@@ -41,35 +42,44 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
             appBar: AppBar(
               title: Text('Produtos Disponíveis'),
             ),
-            body: Form(
-              child: GridView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  String productId = snapshot.data!.docs[index].id;
-                  String name = snapshot.data!.docs[index].get('name');
-                  String imageLink = snapshot.data!.docs[index].get('image');
-                  double price = snapshot.data!.docs[index].get('price');
-                  return InkWell(
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Image.network(imageLink),
-                      decoration: BoxDecoration(
-                          // color: Colors.red[400],
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
-                    onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => EditProductScreen(
-                              name: name,
-                              productId: productId,
-                              price: price,
-                            ))),
-                  );
-                },
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 16,
-                    mainAxisSpacing: 16),
-                shrinkWrap: true,
+            body: GridView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) {
+                String productId = snapshot.data!.docs[index].id;
+                String name = snapshot.data!.docs[index].get('name');
+                String imageLink = snapshot.data!.docs[index].get('image');
+                double price = snapshot.data!.docs[index].get('price');
+                return InkWell(
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Image.network(imageLink),
+                    // child: Text('$name \n $price'),
+                    decoration: BoxDecoration(
+                        // color: Colors.red[400],
+                        borderRadius: BorderRadius.circular(15)),
+                  ),
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => EditProductScreen(
+                            name: name,
+                            productId: productId,
+                            price: price,
+                          ))),
+                );
+              },
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, crossAxisSpacing: 16, mainAxisSpacing: 16),
+              shrinkWrap: true,
+            ),
+            floatingActionButton: FloatingActionButton(
+              heroTag: null,
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => AddProductScreen()));
+              },
+              child: Icon(
+                Icons.plus_one_sharp,
+                size: 25,
+                color: Colors.black,
               ),
             ),
           );

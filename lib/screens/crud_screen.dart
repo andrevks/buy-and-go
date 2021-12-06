@@ -1,4 +1,4 @@
-import 'package:buy_and_go/screens/add_product_screen.dart';
+import 'package:buy_and_go/screens/add_purchase_screen.dart';
 import 'package:buy_and_go/screens/list_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +21,7 @@ class _CrudScreenState extends State<CrudScreen> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => AddProductScreen()));
+              MaterialPageRoute(builder: (context) => AddPurchaseScreen()));
         },
         child: Icon(
           Icons.add,

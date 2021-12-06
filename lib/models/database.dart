@@ -124,19 +124,37 @@ class Database {
     }
   }
 
-  static Future<void> updateStudent(
-      dynamic docId, String name, String socialMedia) async {
-    DocumentReference documentReference =
-        _reference.doc(userId).collection("students").doc(docId);
+  static addProduct({
+    required String name,
+    required double price,
+    String? image,
+  }) async {
+    //Choosing the ID
+    DocumentReference productDoc =
+        _productReference.doc(name.replaceAll(' ', '').toLowerCase());
 
     Map<String, dynamic> data = <String, dynamic>{
       "name": name,
-      "socialMedia": socialMedia,
+      "price": price,
+      "image":
+          'https://firebasestorage.googleapis.com/v0/b/buy-and-go-fe7db.appspot.com/o/images%2Fnoimage.png?alt=media&token=c80cef1e-8027-432c-bdb6-625f501c66c1',
     };
-    await documentReference
-        .update(data)
-        .whenComplete(() => print("estudante atualizado com sucesso!!!"));
+    await productDoc.set(data).whenComplete(
+        () => print("PRODUTO ${data['name']} gravado com sucesso!!!"));
   }
+  // static Future<void> updateStudent(
+  //     dynamic docId, String name, String socialMedia) async {
+  //   DocumentReference documentReference =
+  //       _reference.doc(userId).collection("students").doc(docId);
+
+  //   Map<String, dynamic> data = <String, dynamic>{
+  //     "name": name,
+  //     "socialMedia": socialMedia,
+  //   };
+  //   await documentReference
+  //       .update(data)
+  //       .whenComplete(() => print("estudante atualizado com sucesso!!!"));
+  // }
 
   static Future<void> updateProduct(
       dynamic productId, String name, double price) async {
@@ -183,18 +201,23 @@ class Database {
 
     return allData;
   }
-  /* 
-    You need to create a collection product and then a doc to a list of products
-
-  */
 
   //método para deletar info no firebase
-  static deleteStudent(String id) {
-    DocumentReference documentReference =
-        _reference.doc(userId).collection('students').doc(id);
+  // static deleteStudent(String id) {
+  //   DocumentReference documentReference =
+  //       _reference.doc(userId).collection('students').doc(id);
+  //   documentReference
+  //       .delete()
+  //       .whenComplete(() => print("Estudante deletado com sucesso!!!"))
+  //       .catchError((e) => print(e));
+  // }
+
+  static deleteProduct(String productId) {
+    DocumentReference documentReference = _productReference.doc(productId);
     documentReference
         .delete()
-        .whenComplete(() => print("Estudante deletado com sucesso!!!"))
+        .whenComplete(
+            () => print("Produto ($documentReference) deletado com sucesso!!!"))
         .catchError((e) => print(e));
   }
 

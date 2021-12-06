@@ -42,8 +42,8 @@ class _EditScreenState extends State<EditScreen> {
               size: 30,
             ),
             onPressed: () {
-              Database.deleteStudent(widget.id);
-              Navigator.of(context).pop();
+              // Database.deleteStudent(widget.id);
+              // Navigator.of(context).pop();
             },
           ),
         ],
@@ -86,9 +86,9 @@ class _EditScreenState extends State<EditScreen> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () async {
-                          await Database.updateStudent(widget.id,
-                              nameController.text, socialMediaController.text);
-                          Navigator.of(context).pop();
+                          // await Database.updateStudent(widget.id,
+                          //     nameController.text, socialMediaController.text);
+                          // Navigator.of(context).pop();
                         },
                         child: Text(
                           "Atualizar Dados",

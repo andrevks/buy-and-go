@@ -46,7 +46,8 @@ class _EditProductScreenState extends State<EditProductScreen> {
             onPressed: () {
               print("DELETE pressed\n");
               // Database.deleteStudent(widget.id);
-              // Navigator.of(context).pop();
+              Database.deleteProduct(widget.productId);
+              Navigator.of(context).pop();
             },
           ),
         ],
