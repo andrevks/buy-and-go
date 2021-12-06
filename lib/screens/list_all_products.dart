@@ -46,6 +46,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   String productId = snapshot.data!.docs[index].id;
+                  String name = snapshot.data!.docs[index].get('name');
                   String imageLink = snapshot.data!.docs[index].get('image');
                   double price = snapshot.data!.docs[index].get('price');
                   return InkWell(
@@ -58,6 +59,7 @@ class _ListProductsScreenState extends State<ListProductsScreen> {
                     ),
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => EditProductScreen(
+                              name: name,
                               productId: productId,
                               price: price,
                             ))),

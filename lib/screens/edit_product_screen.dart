@@ -3,12 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class EditProductScreen extends StatefulWidget {
-  const EditProductScreen({
-    Key? key,
-    required this.productId,
-    required this.price,
-  }) : super(key: key);
+  const EditProductScreen(
+      {Key? key,
+      required this.productId,
+      required this.price,
+      required this.name})
+      : super(key: key);
   final String productId;
+  final String name;
   final double price;
 
   @override
@@ -18,13 +20,15 @@ class EditProductScreen extends StatefulWidget {
 class _EditProductScreenState extends State<EditProductScreen> {
   @override
   void initState() {
-    nameController = TextEditingController(text: widget.productId);
+    nameController = TextEditingController(text: widget.name);
     priceController = TextEditingController(text: widget.price.toString());
+    productIdController = TextEditingController(text: widget.productId);
     super.initState();
   }
 
   late TextEditingController nameController;
   late TextEditingController priceController;
+  late TextEditingController productIdController;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,6 +93,11 @@ class _EditProductScreenState extends State<EditProductScreen> {
                           // await Database.updateStudent(widget.id,
                           //     nameController.text, priceController.text);
                           // Navigator.of(context).pop();
+                          await Database.updateProduct(
+                              widget.productId,
+                              nameController.text,
+                              double.parse(priceController.text));
+                          Navigator.of(context).pop();
                         },
                         child: Text(
                           "Atualizar Dados",

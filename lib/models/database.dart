@@ -138,10 +138,17 @@ class Database {
         .whenComplete(() => print("estudante atualizado com sucesso!!!"));
   }
 
-  static Stream<QuerySnapshot> studentsList() {
-    CollectionReference studentsCollection =
-        _reference.doc(userId).collection('students');
-    return studentsCollection.snapshots();
+  static Future<void> updateProduct(
+      dynamic productId, String name, double price) async {
+    DocumentReference productDoc = _productReference.doc(productId);
+
+    Map<String, dynamic> data = <String, dynamic>{
+      "name": name,
+      "price": price,
+    };
+    await productDoc
+        .update(data)
+        .whenComplete(() => print("Produto ($name) atualizado com sucesso!!!"));
   }
 
   static Stream<QuerySnapshot> shoppingList() {
