@@ -5,10 +5,12 @@ import 'package:flutter/services.dart';
 class ViewProductScreen extends StatefulWidget {
   const ViewProductScreen({
     Key? key,
+    required this.qty,
     required this.imageLink,
     required this.name,
     required this.price,
   }) : super(key: key);
+  final int qty;
   final String name;
   final double price;
   final String imageLink;
@@ -58,7 +60,7 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                       "${widget.name}",
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontWeight: FontWeight.bold),
-                      textScaleFactor: 3,
+                      textScaleFactor: 2.5,
                     ),
                     SizedBox(
                       height: 40,
@@ -67,7 +69,16 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                       "R\$ ${widget.price}",
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontWeight: FontWeight.bold),
-                      textScaleFactor: 3,
+                      textScaleFactor: 2.5,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Qtd: ${widget.qty}",
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      textScaleFactor: 2,
                     ),
                   ],
                 ),

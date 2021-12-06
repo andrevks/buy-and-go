@@ -49,6 +49,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   String productId = snapshot.data!.docs[index].id;
+                  int qty = snapshot.data!.docs[index].get('qty');
                   String name = snapshot.data!.docs[index].get('name');
                   String imageLink = snapshot.data!.docs[index].get('image');
                   double price = snapshot.data!.docs[index].get('price');
@@ -62,6 +63,7 @@ class _ListProductScreenState extends State<ListProductScreen> {
                     ),
                     onTap: () => Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => ViewProductScreen(
+                              qty: qty,
                               name: name,
                               price: price,
                               imageLink: imageLink,

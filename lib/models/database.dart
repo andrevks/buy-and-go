@@ -153,10 +153,6 @@ class Database {
   static Stream<QuerySnapshot> productListFromUser(String purchaseId) {
     print("ID>>> ${purchaseId}\n");
 
-    // CollectionReference cartCollection =
-    //     _cartReference.doc(purchaseId).collection('products');
-    // return cartCollection.snapshots();
-
     CollectionReference purchaseCollection =
         _purchaseReference.doc(purchaseId).collection('products');
     return purchaseCollection.snapshots();
