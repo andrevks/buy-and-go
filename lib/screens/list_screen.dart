@@ -21,7 +21,7 @@ class ListScreen extends StatelessWidget {
           return ListView.separated(
             itemCount: snapshot.data!.docs.length,
             separatorBuilder: (context, index) => SizedBox(
-              height: 6,
+              height: 10,
             ),
             itemBuilder: (context, index) {
               String purchaseId = snapshot.data!.docs[index].id;
@@ -32,13 +32,13 @@ class ListScreen extends StatelessWidget {
                   "Preço Total: $totalPrice",
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontWeight: FontWeight.bold),
-                  textScaleFactor: 1.5,
+                  textScaleFactor: 1.6,
                 ),
                 subtitle: Text(
                   "Dia: $date",
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontWeight: FontWeight.bold),
-                  textScaleFactor: 1.5,
+                  textScaleFactor: 1.6,
                 ),
 
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(

@@ -148,6 +148,18 @@ class Database {
     return productCollection.snapshots();
   }
 
+  static Future<List<Map<String, dynamic>>> getData() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await _productReference.get();
+
+    //convert to the list of Map<string, dynamic> to be more specific
+    final List<Map<String, dynamic>> allData = List<Map<String, dynamic>>.from(
+        querySnapshot.docs
+            .map((doc) => doc.data())
+            .toList()); // Get data from docs and convert map to List
+
+    return allData;
+  }
   /* 
     You need to create a collection product and then a doc to a list of products
 

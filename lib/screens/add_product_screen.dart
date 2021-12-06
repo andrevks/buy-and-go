@@ -3,18 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class AddStudentScreen extends StatefulWidget {
-  const AddStudentScreen({Key? key}) : super(key: key);
+class AddProductScreen extends StatefulWidget {
+  const AddProductScreen({Key? key}) : super(key: key);
 
   @override
-  _AddStudentScreenState createState() => _AddStudentScreenState();
+  _AddProductScreenState createState() => _AddProductScreenState();
 }
 
-class _AddStudentScreenState extends State<AddStudentScreen> {
-  TextEditingController _controllerName = TextEditingController();
-  TextEditingController _controllerSocialMedia = TextEditingController();
-  TextEditingController _controllerAge = TextEditingController();
-
+class _AddProductScreenState extends State<AddProductScreen> {
   TextEditingController _controllerDate = TextEditingController();
   TextEditingController _controllerTotalPrice = TextEditingController();
 
@@ -33,7 +29,7 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                   height: 30,
                 ),
                 Text(
-                  'Registrar Compra',
+                  'Gerar Compra',
                   style: TextStyle(
                     fontSize: 30,
                   ),
@@ -43,21 +39,13 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                   height: 30,
                 ),
                 // TextFormField(
-                //   controller: _controllerDate,
+                //   controller: _controllerTotalPrice,
                 //   decoration: InputDecoration(
-                //     labelText: 'Data da compra',
+                //     labelText: 'Preço Total',
                 //     labelStyle: const TextStyle(color: Colors.blue),
-                //     hintText: 'Informe a data da compra',
+                //     hintText: 'Informe o Preço Total',
                 //   ),
                 // ),
-                TextFormField(
-                  controller: _controllerTotalPrice,
-                  decoration: InputDecoration(
-                    labelText: 'Preço Total',
-                    labelStyle: const TextStyle(color: Colors.blue),
-                    hintText: 'Informe o Preço Total',
-                  ),
-                ),
                 // TextFormField(
                 //   controller: _controllerAge,
                 //   decoration: InputDecoration(
@@ -70,19 +58,26 @@ class _AddStudentScreenState extends State<AddStudentScreen> {
                   height: 40,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    String stringDate =
-                        DateFormat('yyyy-MM-dd').format(DateTime.now());
-                    Database.addToShoppingList(
-                      date: stringDate,
-                      totalPrice: double.parse(_controllerTotalPrice.text),
-                      // age: _controllerAge.text.isEmpty
-                      //     ? null
-                      //     : int.parse(_controllerAge.text),
-                    );
+                  onPressed: () async {
+                    //  final List<  =  Database.productList();
+
+                    // Future<List<Object?>> allProduct =  Database.getData();
+                    List<Map<String, dynamic>> allProduct =
+                        await Database.getData();
+
+                    print("Generate Purchase: $allProduct");
+                    // String stringDate =
+                    //     DateFormat('yyyy-MM-dd').format(DateTime.now());
+                    // Database.addToShoppingList(
+                    //   date: stringDate,
+                    //   totalPrice: double.parse(_controllerTotalPrice.text),
+                    // age: _controllerAge.text.isEmpty
+                    //     ? null
+                    //     : int.parse(_controllerAge.text),
+                    // );
                     Navigator.of(context).pop();
                   },
-                  child: Text("Adicionar Compra"),
+                  child: Text("Gerar Compra"),
                 )
               ],
             ),
