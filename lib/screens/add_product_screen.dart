@@ -2,6 +2,7 @@ import 'package:buy_and_go/models/database.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({Key? key}) : super(key: key);
@@ -62,19 +63,65 @@ class _AddProductScreenState extends State<AddProductScreen> {
                     //  final List<  =  Database.productList();
 
                     // Future<List<Object?>> allProduct =  Database.getData();
-                    List<Map<String, dynamic>> allProduct =
+                    List<Map<String, dynamic>> allProducts =
                         await Database.getData();
 
-                    print("Generate Purchase: $allProduct");
-                    // String stringDate =
-                    //     DateFormat('yyyy-MM-dd').format(DateTime.now());
-                    // Database.addToShoppingList(
-                    //   date: stringDate,
-                    //   totalPrice: double.parse(_controllerTotalPrice.text),
-                    // age: _controllerAge.text.isEmpty
-                    //     ? null
-                    //     : int.parse(_controllerAge.text),
-                    // );
+                    // print("Generate Purchase: $allProducts");
+
+                    print("-----------------------\n");
+                    print("LENGTH: ${allProducts.length}");
+
+                    int len = allProducts.length;
+
+                    var rng = Random();
+                    int nItems = 1;
+                    for (int i = 0; i < 20; i++) {
+                      nItems = rng.nextInt(len);
+                      if (nItems > 0) {
+                        print("Number of Items: $nItems");
+                        break;
+                      }
+                    }
+
+                    print("-----------------------\n");
+
+                    double totalPrice = 0.0;
+                    List<Map<String, dynamic>> purchasedItems = [];
+                    for (int i = 0; i < nItems; i++) {
+                      Map<String, dynamic> element =
+                          allProducts[rng.nextInt(len)];
+
+                      if (purchasedItems.contains(element)) {
+                        print(
+                            '${element['name']} is present in the list $purchasedItems');
+                        element['qty'] += 1;
+                      } else {
+                        print(
+                            '${element['name']} is not present in the list$purchasedItems');
+                        element['qty'] = 1;
+                        purchasedItems.add(element);
+                      }
+                    }
+
+                    print("productsBought:$purchasedItems");
+
+                    totalPrice = purchasedItems.fold(0, (prev, element) {
+                      double actualPrice = (element['qty'] * element['price']);
+                      print("actualPrice: $actualPrice");
+                      return prev + actualPrice;
+                    });
+
+                    print("totalPrice $totalPrice");
+                    String stringDate =
+                        DateFormat('yyyy-MM-dd').format(DateTime.now());
+                    Database.addToShoppingList(
+                        date: stringDate,
+                        totalPrice: totalPrice,
+                        products: purchasedItems
+                        // age: _controllerAge.text.isEmpty
+                        //     ? null
+                        //     : int.parse(_controllerAge.text),
+                        );
                     Navigator.of(context).pop();
                   },
                   child: Text("Gerar Compra"),

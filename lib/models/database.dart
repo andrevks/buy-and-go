@@ -14,6 +14,7 @@ CollectionReference _reference = _firestore.collection("academic");
 CollectionReference _userReference = _firestore.collection("user");
 CollectionReference _productReference = _firestore.collection("product");
 CollectionReference _cartReference = _firestore.collection("cart");
+CollectionReference _purchaseReference = _firestore.collection("purchase");
 
 //inicialização da instância de autenticação no firebase
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -87,22 +88,40 @@ class Database {
   static addToShoppingList({
     required String date,
     required double totalPrice,
-    List<Map<String, dynamic>>? products,
+    required List<Map<String, dynamic>> products,
   }) async {
-    DocumentReference documentReference =
-        _userReference.doc(userId).collection('shoppingList').doc();
+    // DocumentReference documentReference =
+    CollectionReference shoppingListColReference =
+        _userReference.doc(userId).collection('shoppingList');
 
     debugPrint("USERID >>>>> $userId");
 
     Map<String, dynamic> data = <String, dynamic>{
       "date": date,
       "totalPrice": totalPrice,
-      "products": products,
     };
 
-    await documentReference
-        .set(data)
+    DocumentReference shoppingListSaved = await shoppingListColReference
+        .add(data)
         .whenComplete(() => print("COMPRA gravada com sucesso!!!"));
+
+    String shoppingId = shoppingListSaved.id;
+    print("SHOPPING_SAVED: $shoppingId");
+
+    CollectionReference purchaseCol =
+        _purchaseReference.doc(shoppingListSaved.id).collection('products');
+
+    for (Map<String, dynamic> product in products) {
+      data = <String, dynamic>{
+        "shoppingId": shoppingId,
+        "name": product['name'],
+        "image": product['image'],
+        "price": product['price'],
+        "qty": product['qty']
+      };
+      await purchaseCol.add(data).whenComplete(
+          () => print("PRODUTO ${data['name']} gravado com sucesso!!!"));
+    }
   }
 
   static Future<void> updateStudent(
@@ -134,12 +153,13 @@ class Database {
   static Stream<QuerySnapshot> productListFromUser(String purchaseId) {
     print("ID>>> ${purchaseId}\n");
 
-    CollectionReference cartCollection =
-        _cartReference.doc(purchaseId).collection('products');
-    return cartCollection.snapshots();
-    // CollectionReference productCollection = _productReference;
-    // print("RETURN SNAP${productCollection.snapshots()}");
-    // return productCollection.snapshots();
+    // CollectionReference cartCollection =
+    //     _cartReference.doc(purchaseId).collection('products');
+    // return cartCollection.snapshots();
+
+    CollectionReference purchaseCollection =
+        _purchaseReference.doc(purchaseId).collection('products');
+    return purchaseCollection.snapshots();
   }
 
   static Stream<QuerySnapshot> productList() {

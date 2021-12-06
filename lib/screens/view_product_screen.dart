@@ -6,10 +6,10 @@ class ViewProductScreen extends StatefulWidget {
   const ViewProductScreen({
     Key? key,
     required this.imageLink,
-    required this.productId,
+    required this.name,
     required this.price,
   }) : super(key: key);
-  final String productId;
+  final String name;
   final double price;
   final String imageLink;
 
@@ -55,7 +55,7 @@ class _ViewProductScreenState extends State<ViewProductScreen> {
                     Image.network(widget.imageLink),
                     SizedBox(height: 40),
                     Text(
-                      "${widget.productId}",
+                      "${widget.name}",
                       textAlign: TextAlign.center,
                       style: const TextStyle(fontWeight: FontWeight.bold),
                       textScaleFactor: 3,
