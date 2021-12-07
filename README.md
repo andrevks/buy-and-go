@@ -1,16 +1,9 @@
 # buy_and_go
 
-A new Flutter project.
+A app that list purchases from a user. It generates random purchases to simulate a user after going to the supermarket. The purpose was to make a CRUD to Firebase using Flutter. 
 
-## Getting Started
+## Demostration
 
-This project is a starting point for a Flutter application.
+## How does the system works ?
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [🎞️ `Video` in Portuguese](https://youtu.be/p-9jBihHUQM)
